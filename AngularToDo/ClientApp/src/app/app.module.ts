@@ -11,6 +11,7 @@ import { CounterComponent } from './counter/counter.component';
 import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { TaskListComponent } from './task-list/task-list.component';
 import { TaskDetailComponent } from './task-list/task-detail.component';
+import { TaskDetailGuard } from './task-list/task-detail.guard';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,11 @@ import { TaskDetailComponent } from './task-list/task-detail.component';
       { path: 'counter', component: CounterComponent },
       { path: 'fetch-data', component: FetchDataComponent },
       { path: 'task-list', component: TaskListComponent },
-      { path: 'task-list/:id', component: TaskDetailComponent },
+      {
+        path: 'task-list/:id',
+        canActivate: [TaskDetailGuard],
+        component: TaskDetailComponent
+      },
     ])
   ],
   providers: [],
