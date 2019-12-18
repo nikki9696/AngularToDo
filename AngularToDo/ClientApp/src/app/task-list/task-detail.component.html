@@ -1,0 +1,8 @@
+
+<p *ngIf="!taskItem"><em>Loading...</em></p>
+
+<div class="card" *ngIf="taskItem">
+  <div class="card-header">
+    {{ taskItem.name }}
+  </div>
+</div>

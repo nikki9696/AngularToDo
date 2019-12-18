@@ -1,0 +1,51 @@
+<h1 id="tableLabel">Task List</h1>
+
+<p *ngIf="!filteredTasks"><em>Loading...</em></p>
+
+<div class="card">
+  <div class="card-body">
+    <div class="row">
+      <div class="col-md-2">
+        Filter By:
+      </div>
+      <div class="col-md-4">
+        <label for="txtDescriptionFilter" class="pr-2">Description</label>
+        <input id="txtDescriptionFilter" type="text" [(ngModel)]='descriptionFilter' />
+      </div>
+    </div>
+  </div>
+</div>
+<!-- todo: filter by complete date, sorting, dynamic show of completed date column -->
+<table class='table' aria-labelledby="tableLabel" *ngIf="filteredTasks">
+  <thead>
+    <tr>
+      <th></th>
+      <th>Task Name</th>
+      <th>Description</th>
+      <th>Due</th>
+      <th>Status</th>
+      <th>Starred</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let task of filteredTasks"
+        class="{{ task.isOverdue ? 'bg-danger text-light' : task.isComplete ? 'bg-success' : '' }}">
+      <td><button type="button" class="btn btn-primary" [routerLink]="['/task-list', task.id]">View</button></td>
+      <td>
+        {{ task.name }}
+      </td>
+      <td>
+        {{ task.description }}
+      </td>
+      <td>
+        {{ task.dueDate | date:'MM/dd/yyyy' }}
+      </td>
+      <td>
+        {{ task.status }}
+      </td>
+      <td>
+        {{ task.starred }}
+      </td>
+    </tr>
+  </tbody>
+</table>
