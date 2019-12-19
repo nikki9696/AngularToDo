@@ -1,25 +1,75 @@
 
-<div class="container-fluid d-flex h-100 flex-column">
-  <p *ngIf="!taskItem"><em>Loading...</em></p>
+<form #form="ngForm">
+  <div class="container-fluid d-flex h-100 flex-column">
+    <p *ngIf="!taskItem"><em>Loading...</em></p>
 
-  <div class="card" *ngIf="taskItem" style="min-height: 50vh">
-    <div class="row m-0">
-      <div class="col card-header">
-        {{ taskItem.name }}
+    <div class="card" *ngIf="taskItem" style="min-height: 50vh">
+      <div class="row m-0">
+        <div class="col card-header">
+          <div class="form-group">
+            <label for="taskName">Task Name:</label>
+            <input type="text" class="form-control"
+                   id="taskName" name="taskName"
+                   aria-describedby="taskName"
+                   [(ngModel)]="taskItem.name" />
+          </div>
+        </div>
+      </div>
+
+      <div class="row m-0 flex-fill d-flex">
+        <div class="col card-body">
+          <div class="row">
+            <div class="col form-group">
+              <label for="description">Task Description:</label>
+              <textarea class="form-control"
+                        id="description" name="description"
+                        aria-describedby="description"
+                        rows="5" cols="50"
+                        [(ngModel)]="taskItem.description"></textarea>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-4 form-group">
+              <label for="status">Status:</label>
+              <select class="custom-select" id="status" name="status" [(ngModel)]="taskItem.status">
+                <option value="Not Started">Not Started</option>
+                <option value="In Progress">In Progress</option>
+                <option value="Complete">Complete</option>
+              </select>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-3">
+              <div class="form-group">
+                <label for="dueDate">Due Date:</label>
+                <input class="form-control" type="date"
+                       id="dueDate" name="dueDate"
+                       [ngModel]="taskItem.dueDate | date:'yyyy-MM-dd'" (ngModelChange)="taskItem.dueDate = $event" />
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label for="completedDate">Completed Date:</label>
+                <input class="form-control" type="date"
+                       id="completedDate" name="completedDate"
+                       [ngModel]="taskItem.completedDate | date:'yyyy-MM-dd'" (ngModelChange)="taskItem.completedDate = $event" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row m-0">
+        <div class="col card-footer">
+          <button type="button" class="btn btn-outline-secondary" [routerLink]="['/task-list']">Cancel</button>
+          <button type="button" class="btn btn-primary">Save</button>
+        </div>
       </div>
     </div>
 
-    <div class="row m-0 flex-fill d-flex">
-      <div class="col card-body">
-        {{ taskItem.description }}
-      </div>
-    </div>
-
-    <div class="row m-0">
-      <div class="col card-footer">
-        <button type="button" class="btn btn-outline-secondary" [routerLink]="['/task-list']">Back</button>
-      </div>
-    </div>
   </div>
+</form>
 
-</div>
+<p>
+  {{ taskItem | json }}
+</p>

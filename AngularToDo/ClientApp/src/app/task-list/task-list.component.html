@@ -30,7 +30,7 @@
   <tbody>
     <tr *ngFor="let task of filteredTasks"
         class="{{ task.isOverdue ? 'bg-danger text-light' : task.isComplete ? 'bg-success' : '' }}">
-      <td><button type="button" class="btn btn-primary" [routerLink]="['/task-list', task.id]">View</button></td>
+      <td><button type="button" class="btn btn-primary" [routerLink]="['/task-list', task.id]">Edit</button></td>
       <td>
         {{ task.name }}
       </td>
