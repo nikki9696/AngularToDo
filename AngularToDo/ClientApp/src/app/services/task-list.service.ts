@@ -1,7 +1,7 @@
 import { Injectable, Inject } from "@angular/core";
 import { ITaskItem } from "../task-list/taskItem";
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
-import { Observable, throwError } from "rxjs";
+import { Observable, throwError, of } from "rxjs";
 import { catchError, tap } from "rxjs/operators";
 
 @Injectable({
@@ -28,7 +28,11 @@ export class TaskService {
       tap(data => console.log("All: " + JSON.stringify(data))),
       catchError(this.handleError)
     );
-  }
+    }
+
+    postTask(taskItem: ITaskItem): Observable<any> {
+        return this._httpClient.post(this._baseUrl + 'tasklist/', taskItem);
+    } 
 
   private handleError(err : HttpErrorResponse) {
     console.log(err);

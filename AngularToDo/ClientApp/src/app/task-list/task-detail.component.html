@@ -1,5 +1,5 @@
 
-<form #form="ngForm">
+<form #form="ngForm" (ngSubmit)="onSubmit(form)">
   <div class="container-fluid d-flex h-100 flex-column">
     <p *ngIf="!taskItem"><em>Loading...</em></p>
 
@@ -11,7 +11,11 @@
             <input type="text" class="form-control"
                    id="taskName" name="taskName"
                    aria-describedby="taskName"
-                   [(ngModel)]="taskItem.name" />
+                   required
+                   [(ngModel)]="taskItem.name"
+                   #nameField="ngModel" />
+            <div [hidden]="nameField.valid || nameField  .untouched"
+                 class="alert alert-danger">Please enter a name</div>
           </div>
         </div>
       </div>
@@ -31,10 +35,12 @@
           <div class="row">
             <div class="col-md-4 form-group">
               <label for="status">Status:</label>
-              <select class="custom-select" id="status" name="status" [(ngModel)]="taskItem.status">
-                <option value="Not Started">Not Started</option>
-                <option value="In Progress">In Progress</option>
-                <option value="Complete">Complete</option>
+              <select class="custom-select" id="status" name="status"
+                      required
+                      [(ngModel)]="taskItem.status">
+                <option *ngFor="let type of statusTypes">
+                  {{ type }}
+                </option>
               </select>
             </div>
           </div>
@@ -62,7 +68,7 @@
       <div class="row m-0">
         <div class="col card-footer">
           <button type="button" class="btn btn-outline-secondary" [routerLink]="['/task-list']">Cancel</button>
-          <button type="button" class="btn btn-primary">Save</button>
+          <button type="submit" class="btn btn-primary">Save</button>
         </div>
       </div>
     </div>

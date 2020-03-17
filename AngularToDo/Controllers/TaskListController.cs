@@ -47,6 +47,14 @@ namespace AngularToDo.Controllers
                     Description = "we need fooood",
                     DueDate = DateTime.Parse("12/30/2019"),
                     Status = "In Progress"
+                },
+                new TaskItem()
+                {
+                    Id = 5,
+                    Name = "",
+                    Description = "",
+                    DueDate = DateTime.Parse("12/30/2020"),
+                    Status = "Not Started"
                 }
             };
 
@@ -67,6 +75,13 @@ namespace AngularToDo.Controllers
         public TaskItem GetTask(int id)
         {
             return Items.Where(x => x.Id == id).FirstOrDefault();
+        }
+
+        [HttpPost]
+        [Route("tasklist")]
+        public async Task<TaskItem> PostTask(TaskItem taskItem)
+        {
+            return taskItem;
         }
     }
 }
