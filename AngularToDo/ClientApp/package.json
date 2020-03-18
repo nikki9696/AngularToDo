@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve --host 0.0.0.0" /* known issue https://github.com/dotnet/aspnetcore/issues/17277 */
     "build": "ng build",
     "build:ssr": "ng run AngularToDo:server:dev",
     "test": "ng test",
